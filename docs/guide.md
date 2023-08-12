@@ -26,3 +26,8 @@ iHorizon have 18 category of command:
 * Role Reaction
 * Ticket
 * Util
+
+
+### Backup Category
+
+There is 3 commands possible into this category
