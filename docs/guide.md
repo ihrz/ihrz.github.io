@@ -84,3 +84,61 @@ Bot permission needed: Send Message
 
 User permission needed: None<br>
 Bot permission needed: Send Message
+
+### Economy Category
+
+There is 1 command (With 9 sub-command) available in this category
+
+`/economy wallet` -> Get the balance of a user's wallet!
+
+User permission needed: None<br>
+Bot permission needed: Send Message
+
+`/economy manage add` -> Add money to a user!
+
+User permission needed: Administrator.<br>
+Bot permission needed: Send Message
+
+`/economy manage remove` -> Remove money from a user!
+
+User permission needed: Administrator<br>
+Bot permission needed: Send Message
+
+`/economy pay` -> Pay a user a certain amount!
+
+User permission needed: None<br>
+Bot permission needed: Send Message
+
+`/economy reward daily` -> Claim a daily reward!
+
+User permission needed: None<br>
+Bot permission needed: Send Message
+
+`/economy reward monthly` -> Claim a monthly reward!
+
+User permission needed: None<br>
+Bot permission needed: Send Message
+
+`/economy reward weekly` -> Claim a weekly reward!
+
+User permission needed: None<br>
+Bot permission needed: Send Message
+
+`/economy rob` -> Rob a user!
+
+User permission needed: None<br>
+Bot permission needed: Send Message
+
+`/economy work` -> Claim a work reward!
+
+User permission needed: None<br>
+Bot permission needed: Send Message
+
+### Fun Category
+
+There is 1 command (With 11 sub-command) available in this category
+
+`/fun love` -> Show your love compatibility with the user!
+
+User permission needed: None<br>
+Bot permission needed: Send Message, Send Image
