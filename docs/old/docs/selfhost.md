@@ -15,8 +15,10 @@ After your configuration in the config.ts :
 ```bash
 node -v  &&  npm -v
 ```
+
 If it shows an error please install npm and node.js.
+
 ```bash
 yarn
-npm build && npm start
+yarn start
 ```
