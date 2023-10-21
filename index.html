@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>iHorizon - The Futurest Bot</title>
-        <link rel="icon" type="image/png" href="assets/img/ihorizon.png">
-        <meta property="og:title" content="iHorizon">
-        <meta property="og:description" content="The Futurest Bot.">
-        <meta property="og:image" content="https://ihrz.github.io/assets/img/ihorizon.png">
-        <meta property="og:url" content="/">
-        <meta property="og:type" content="website">
-        <meta name="theme-color" content="#5a4fcf">
-    </head>
-<body>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iHorizon - The Futurest Bot</title>
+    <link rel="icon" type="image/png" href="assets/img/ihorizon.png" />
+    <meta property="og:title" content="iHorizon" />
+    <meta property="og:description" content="The Futurest Bot." />
+    <meta
+      property="og:image"
+      content="https://ihrz.github.io/assets/img/ihorizon.png"
+    />
+    <meta property="og:url" content="/" />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#5a4fcf" />
+  </head>
+  <body>
     <script>
-        function detectLanguage() {
-            const userLang = navigator.language || navigator.userLanguage;
-            return userLang.toLowerCase();
-        }
+      function detectLanguage() {
+        const userLang = navigator.language || navigator.userLanguage;
+        return userLang.toLowerCase();
+      }
 
-        const userLanguage = detectLanguage();
-        if (userLanguage.includes("en")) {
-            window.location.href = "en"; 
-        } else if (userLanguage.includes("fr")) {
-            window.location.href = "fr"; 
-        } else if (userLanguage.includes("es")) {
-            window.location.href = "es"; 
-        } else if (userLanguage.includes("ru")) {
-            window.location.href = "ru"; 
-        } else if (userLanguage.includes("ja")) {
-            window.location.href = "jp"; 
-        } else if (userLanguage.includes("it")) {
-            window.location.href = "it"; 
-        } else if (userLanguage.includes("de")) {
-            window.location.href = "de"; 
-        } else {
-            window.location.href = "en"; 
-        }
+      const userLanguage = detectLanguage();
+      if (userLanguage.includes("en")) {
+        window.location.href = "en";
+      } else if (userLanguage.includes("fr")) {
+        window.location.href = "fr";
+      } else if (userLanguage.includes("es")) {
+        window.location.href = "es";
+      } else if (userLanguage.includes("ru")) {
+        window.location.href = "ru";
+      } else if (userLanguage.includes("ja")) {
+        window.location.href = "jp";
+      } else if (userLanguage.includes("it")) {
+        window.location.href = "it";
+      } else if (userLanguage.includes("de")) {
+        window.location.href = "de";
+      } else {
+        window.location.href = "en";
+      }
     </script>
-</body>
+  </body>
 </html>
