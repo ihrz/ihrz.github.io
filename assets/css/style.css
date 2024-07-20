@@ -8,7 +8,7 @@
 }
 
 .bg-embed-dark {
-    background-color: #1a181a; 
+    background-color: #1a181a;
 }
 
 *,
@@ -56,12 +56,14 @@ br {
         padding-top: 3%;
         padding-bottom: 3%
     }
+
     .blackText {
         font-size: 55px
     }
+
     .sectionGrid {
         display: grid;
-        align-items:center;
+        align-items: center;
         grid-template-columns: auto auto;
         grid-gap: 6%;
     }
@@ -76,12 +78,15 @@ br {
         padding-top: 4rem;
         padding-bottom: 4rem
     }
+
     .blackText {
         font-size: 40px
     }
+
     .sectionGridItemRight {
         padding-top: 1em
     }
+
     .sidebar {
         background-color: var(--primaryColor)
     }
@@ -145,7 +150,7 @@ nav {
 }
 
 .gradientBg {
-    background-image: linear-gradient(to right, var(--secondaryColor) , var(--tertiaryColor))
+    background-image: linear-gradient(to right, var(--secondaryColor), var(--tertiaryColor))
 }
 
 .blackBg {
@@ -180,7 +185,7 @@ nav {
 }
 
 .gradientColor {
-    background: linear-gradient(to right, var(--secondaryColor) , var(--tertiaryColor));
+    background: linear-gradient(to right, var(--secondaryColor), var(--tertiaryColor));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent
 }
