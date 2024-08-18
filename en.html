@@ -32,6 +32,25 @@
       pointer-events: none;
       display: inline-block;
     }
+
+    .snowflake {
+      position: fixed;
+      top: -1px;
+      width: 5px;
+      height: 5px;
+      background: rgb(134, 117, 117);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.99;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
   </style>
 </head>²
 
@@ -168,12 +187,12 @@
         <div class="social-media-links mt-8 lg:mt-0 flex flex-col items-center justify-center space-y-4">
           <p class="extraBoldText text-white opacity-90">Follow Us</p>
           <div class="flex space-x-4">
-            <a href="https://twitter.com/HorizonI91488?t=PeCEzVCno3En1UJ8kD6riw&s=09" target="_blank" class="text-white hover:text-gray-400"><i
-                class="fab fa-twitter fa-2x"></i></a>
+            <a href="https://twitter.com/HorizonI91488?t=PeCEzVCno3En1UJ8kD6riw&s=09" target="_blank"
+              class="text-white hover:text-gray-400"><i class="fab fa-twitter fa-2x"></i></a>
             <a href="https://discord.com/invite/ihorizon" target="_blank" class="text-white hover:text-gray-400"><i
                 class="fab fa-discord fa-2x"></i></a>
-            <a href="https://www.youtube.com/@iHorizonOfficiel" target="_blank" class="text-white hover:text-gray-400"><i
-                class="fab fa-youtube fa-2x"></i></a>
+            <a href="https://www.youtube.com/@iHorizonOfficiel" target="_blank"
+              class="text-white hover:text-gray-400"><i class="fab fa-youtube fa-2x"></i></a>
           </div>
         </div>
       </div>
@@ -616,5 +635,6 @@
 <script src="./assets/js/card.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
 <script src="./assets/js/api.js"></script>
+<script src="./assets/js/snow.js"></script>
 
 </html>
