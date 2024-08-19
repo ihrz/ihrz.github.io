@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("https://horizon-gateway.ovh/api/ihorizon/v1/bot")
+  fetch("https://gateway.ihorizon.me/api/ihorizon/v1/bot")
     .then((response) => response.json())
     .then((data) => {
       document.getElementById(
