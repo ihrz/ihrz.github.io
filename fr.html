@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iHorizon - The Bot of the Future</title>
+    <link rel="icon" type="image/png" href="./assets/img/ihorizon.png" />
+    <meta property="og:title" content="iHorizon" />
+    <meta property="og:description" content="The Bot of the Future." />
+    <meta property="og:image" content="https://ihrz.github.io/assets/img/ihorizon.png" />
+    <meta property="og:url" content="/" />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#5a4fcf" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link href="./assets/css/card.css" rel="stylesheet" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js" crossorigin="anonymous"></script>
+    <script>
+        window.onload = function () {
+            twemoji.parse(document.body, { folder: "svg", ext: ".svg" });
+        };
+    </script>
+    <style>
+        img.emoji {
+            width: 1em;
+            pointer-events: none;
+            display: inline-block;
+        }
+
+        .snowflake {
+            position: fixed;
+            top: -1px;
+            width: 5px;
+            height: 5px;
+            background: rgb(134, 117, 117);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.99;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .music-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        .music-button i {
+            color: white;
+            font-size: 24px;
+        }
+
+        /* Effet de flou sur toute la page */
+        .blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Style du bouton "Enter" */
+        .enter-button {
+            padding: 15px 30px;
+            font-size: 24px;
+            color: white;
+            background-color: #464e57;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .enter-button:hover {
+            background-color: #b4c2d1;
+        }
+    </style>
+</head>
+
+<!-- <div class="blur-overlay" id="blurOverlay">
+  <button class="enter-button" id="enterButton">Enter</button>
+</div> -->
+
+<button class="music-button" id="musicButton">
+    <i class="fas fa-music"></i>
+</button>
+<audio id="backgroundMusic" loop>
+    <source src="./assets/audio/AIRCRAFT.mp3" type="audio/mpeg">
+    Votre navigateur ne supporte pas l'élément audio.
+</audio>
+
+<body class="container max-w-10xl mx-auto">
+<nav class="sticky w-full z-20 top-0 left-0">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="index" class="flex items-center">
+            <img src="./assets/img/ihorizon.png" draggable="false" class="h-7 mr-3" alt="IMG" />
+            <span class="regularTextBold text-white self-center whitespace-nowrap">iHorizon</span>
+        </a>
+        <div class="flex md:order-2">
+            <a href="https://discord.com/api/oauth2/authorize?client_id=945202900907470899&permissions=8&scope=bot%20applications.commands"
+               target="_blank"><button type="button"
+                                       class="normalTextBold text-black button-color rounded-full px-6 py-3 text-center mr-3 md:mr-0">
+                <i class="fa-brands fa-discord mr-2"></i>Ajouter le bot à votre serveur !
+            </button></a>
+            <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 text-white rounded-xl md:hidden
+          coloredBg aria-controls=" navbar-sticky" aria-expanded="false">
+            <span class="sr-only">Menu Principal</span>
+            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                      clip-rule="evenodd"></path>
+            </svg>
+            <button></button>
+        </div>
+        <div class="items-center justify between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+            <ul
+                    class="text-white flex flex-col p-4 md:p-0 mt-4 border border-gray-800 rounded-xl md:flex-row md:space-x-8 md:mt-0 md:border-0">
+                <li>
+                    <a href="#top"
+                       class="normalText text-white whiteUnderline block py-2 pl-3 pr-6 rounded md:hover-bg-transparent md:p-0"><i
+                            class="fa-regular fa-house-blank"></i></a>
+                </li>
+                <li>
+                    <a href="#features"
+                       class="normalText text-white whiteUnderline block py-2 pl-3 pr-6 rounded md:hover-bg-transparent md:p-0">Features</a>
+                </li>
+                <li>
+                    <a href="./docs"
+                       class="normalText text-white whiteUnderline block py-2 pl-3 rounded md:hover-bg-transparent md:p-0">Documentation</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<section class="section">
+    <div class="py-8 px-4 mx-auto max-w-6xl text-center lg:py-16 mt-8">
+        <h1 class="blackText text-white mb-4 tracking-tight leading-none">
+            Le Meilleur Bot
+            <span class="gradientColor">Open Source</span> de discord !
+        </h1>
+        <p class="regularText text-white opacity-90 mt-8 mb-8 sm:px-16 lg:px-48">
+            iHorizon est le meilleur bot pour configurer et sécuriser votre serveur Discord.
+        </p>
+        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+            <a href="https://discord.com/api/oauth2/authorize?client_id=945202900907470899&permissions=8&scope=bot%20applications.commands"
+               target="_blank"
+               class="normalTextBold text-black button-color inline-flex justify-center items-center py-3 px-6 text-center rounded-full">
+                Ajouter à votre serveur
+                <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                          clip-rule="evenodd"></path>
+                </svg>
+            </a>
+            <a href="#features"
+               class="normalTextBold text-white secBg opacity-60 hover:opacity-100 inline-flex justify-center items-center py-3 px-6 text-center rounded-full">
+                Features
+            </a>
+        </div>
+        <div class="text-center">
+            <p class="smallText text-white opacity-90 mt-8 mb-8 sm:px-16 lg:px-48">
+          <span class="mr-2">
+            <i class="fa-regular fa-check mr-1 opacity-90"></i>
+            <span class="opacity-60">Friendly Help</span>
+          </span>
+                <span class="mr-2">
+            <i class="fa-regular fa-check mr-1 opacity-90"></i>
+            <span class="opacity-60">Une assistance de qualité</span>
+          </span>
+            </p>
+            <img src="./assets/img/Help-module.png" draggable="false" alt="IMG"
+                 style="border-radius: 10px; margin: 0 auto; display: block" />
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="py-8 px-4 mx-auto max-w-6xl text-center lg:py-16">
+        <hr class="customHr" />
+        <br />
+        <p class="boldText text-white opacity-90 mt-8 mb-2 sm:px-16 lg:px-48">
+            Already used by over
+            <span class="gradientColor" id="serversCount"><b>890</b></span> servers and more than
+            <span class="gradientColor" id="membersCount"><b>295k</b></span> users
+        </p>
+        <p class="boldText text-white opacity-90 mt-8 mb-2 sm:px-16 lg:px-48">
+            Has a large variety of
+            <span class="gradientColor" id="categoriesCount"><b>20</b></span> categories and more than
+            <span class="gradientColor" id="commandsCount"><b>200</b></span> commands
+        </p>
+        <p class="regularTextIta text-white opacity-60 mb-8 sm:px-16 lg:px-48">
+            iHorizon is the perfect bot for your server.
+        </p>
+        <br />
+        <hr class="customHr" />
+    </div>
+</section>
+<section class="section">
+    <div class="py-8 px-4 mx-auto max-w-6xl lg:py-16 text-center">
+        <p class="extraBoldText text-white opacity-90 mt-8 mb-2">
+            Extremely Simple <span class="gradientColor">Installation</span>
+        </p>
+        <p class="smallText text-white opacity-80 mb-8">
+            Complete the installation of your Discord server in less than a minute!
+        </p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 justify-items-center">
+            <!-- Video Wall Section -->
+            <div class="video-wall grid grid-cols-1 gap-4 w-full max-w-md">
+                <iframe class="rounded-lg" width="100%" height="auto" src="https://www.youtube.com/embed/10Fjk43GsAs"
+                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <iframe class="rounded-lg" width="100%" height="auto" src="https://www.youtube.com/embed/6psOuPbeYDk"
+                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <iframe class="rounded-lg" width="100%" height="auto" src="https://www.youtube.com/embed/KcdhglvM5Wk"
+                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+
+            <!-- Social Media Links Section -->
+            <div class="social-media-links mt-8 lg:mt-0 flex flex-col items-center justify-center space-y-4">
+                <p class="extraBoldText text-white opacity-90">Follow Us</p>
+                <div class="flex space-x-4">
+                    <a href="https://twitter.com/HorizonI91488?t=PeCEzVCno3En1UJ8kD6riw&s=09" target="_blank"
+                       class="text-white hover:text-gray-400"><i class="fab fa-twitter fa-2x"></i></a>
+                    <a href="https://discord.com/invite/ihorizon" target="_blank" class="text-white hover:text-gray-400"><i
+                            class="fab fa-discord fa-2x"></i></a>
+                    <a href="https://www.youtube.com/@iHorizonOfficiel" target="_blank"
+                       class="text-white hover:text-gray-400"><i class="fab fa-youtube fa-2x"></i></a>
+                    <a href="https://github.com/ihrz/ihrz" target="_blank" class="text-white hover:text-gray-400"><i
+                            class="fab fa-github fa-2x"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="sm:px-16 lg:px-48">
+        <div class="grid grid-cols-1 gap-8 sm:gird-cols-1 md:grid-cols-3">
+            <div class="card h-full">
+                <div class="items-center overflow-hidden">
+                    <p class="smallText text-white opacity-80 mt-5">Step 1</p>
+                    <p class="boldText text-white opacity-90 mt-3">
+                        <b>Add to your <span class="gradientColor">Server</span></b>
+                    </p>
+                    <p class="smallText text-white opacity-80 mt-3">
+                        Add iHorizon to your server.
+                    </p>
+                </div>
+            </div>
+            <div class="card h-full">
+                <div class="items-center overflow-hidden">
+                    <p class="smallText text-white opacity-80 mt-5">Step 2</p>
+                    <p class="boldText text-white opacity-90 mt-3">
+                        Use the <span class="gradientColor">Commands</span>
+                    </p>
+                    <p class="smallText text-white opacity-80 mt-3">
+                        Use the /guildconfig commands to configure each part like
+                        the welcome message, logs, roles, etc.
+                    </p>
+                </div>
+            </div>
+            <div class="card h-full">
+                <div class="items-center overflow-hidden">
+                    <p class="smallText text-white opacity-80 mt-5">Step 3</p>
+                    <p class="boldText text-white opacity-90 mt-3">
+                        <b>Everything is <span class="gradientColor">Ready</span>!</b>
+                    </p>
+                    <p class="smallText text-white opacity-80 mt-3">
+                        It's done! You now have an operational server.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4 mt-8">
+        <a href="https://discord.com/api/oauth2/authorize?client_id=945202900907470899&permissions=8&scope=bot%20applications.commands"
+           target="_blank"
+           class="normalTextBold text-black button-color inline-flex justify-center items-center py-3 px-6 text-center rounded-full">
+            Add to Your Server
+            <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clip-rule="evenodd"></path>
+            </svg>
+        </a>
+    </div>
+    <p class="smallText text-white text-center opacity-90 mt-8 mb-8 sm:px-16 lg:px-48">
+      <span class="mr-2">
+        <span class="opacity-60">Completely Free</span></span>
+    </p>
+</section>
+
+<section class="section" id="features">
+    <div class="py-8 px-4 mx-auto max-w-6xl lg:py-16">
+        <hr class="customHr" />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="sectionGrid mt-8 mb-8">
+            <div class="sectionGridItem">
+                <img src="./assets/img/automod-module.png" draggable="false" alt="IMG" style="border-radius: 10px" />
+            </div>
+            <div class="sectionGridItem sectionGridItemRight">
+                <p class="extraBoldText text-white opacity-90">
+                    Configure <span class="gradientColor">AutoMod</span>
+                </p>
+                <p class="smallText text-white opacity-80 mt-4">
+                    Enable Discord's AutoMod as you like with just a few commands.
+                </p>
+                <a href="https://discord.com/api/oauth2/authorize?client_id=945202900907470899&permissions=8&scope=bot%20applications.commands"
+                   target="_blank">
+                    <p class="smallTextBold gradientColor gradientUnderline mt-3">
+                        Add to your Server
+                        <i class="fa-regular fa-arrow-right"></i>
+                    </p>
+                </a>
+            </div>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="sectionGrid mt-8 mb-8">
+            <div class="sectionGridItem">
+                <p class="extraBoldText text-white opacity-90">
+                    Welcome <span class="gradientColor">New Members</span>
+                </p>
+                <p class="smallText text-white opacity-80 mt-4">
+                    When a member joins the server, the bot can automatically greet them by mentioning them and sending a
+                    welcome message.
+                </p>
+                <a href="https://discord.com/api/oauth2/authorize?client_id=945202900907470899&permissions=8&scope=bot%20applications.commands"
+                   target="_blank">
+                    <p class="smallTextBold gradientColor gradientUnderline mt-3">
+                        Add to Your Server
+                        <i class="fa-regular fa-arrow-right"></i>
+                    </p>
+                </a>
+            </div>
+            <div class="sectionGridItem sectionGridItemRight">
+                <img src="./assets/img/Welcome-module.png" draggable="false" alt="IMG"
+                     style="width: 100%; border-radius: 10px" />
+            </div>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="sectionGrid mt-8 mb-8">
+            <div class="sectionGridItem">
+                <img src="./assets/img/music-module.png" draggable="false" alt="IMG" style="border-radius: 10px" />
+            </div>
+            <div class="sectionGridItem sectionGridItemRight">
+                <p class="extraBoldText text-white opacity-90">
+                    Play <span class="gradientColor">Music</span>
+                </p>
+                <p class="smallText text-white opacity-80 mt-4">
+                    Play songs from Deezer, Spotify, SoundCloud, Apple Music, and more.
+                </p>
+                <a href="https://discord.com/api/oauth2/authorize?client_id=945202900907470899&permissions=8&scope=bot%20applications.commands"
+                   target="_blank">
+                    <p class="smallTextBold gradientColor gradientUnderline mt-3">
+                        Add to your server
+                        <i class="fa-regular fa-arrow-right"></i>
+                    </p>
+                </a>
+            </div>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="sectionGrid mt-8 mb-8">
+            <div class="sectionGridItem">
+                <p class="extraBoldText text-white opacity-90">
+                    Manage Invitations for Servers
+                </p>
+                <p class="smallText text-white opacity-80 mt-4">
+                    When a member joins the server, the bot can immediately know who invited the member.
+                </p>
+                <a href="https://discord.com/api/oauth2/authorize?client_id=945202900907470899&permissions=8&scope=bot%20applications.commands"
+                   target="_blank">
+                    <p class="smallTextBold gradientColor gradientUnderline mt-3">
+                        Add to your server
+                        <i class="fa-regular fa-arrow-right"></i>
+                    </p>
+                </a>
+            </div>
+            <div class="sectionGridItem sectionGridItemRight">
+                <img src="./assets/img/inv-module.png" draggable="false" alt="IMG" style="width: 100%; border-radius: 10px" />
+            </div>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="sectionGrid mt-8 mb-8">
+            <div class="sectionGridItem">
+                <img src="./assets/img/tempvoice-module.png" draggable="false" alt="IMG" style="border-radius: 10px" />
+            </div>
+            <div class="sectionGridItem sectionGridItemRight">
+                <p class="extraBoldText text-white opacity-90">
+                    Use <span class="gradientColor">Temp Channels</span>
+                </p>
+                <p class="smallText text-white opacity-80 mt-4">
+                    Manage, erase, lock and unlock your temporary VoiceChannel.
+                </p>
+                <a href="https://discord.com/api/oauth2/authorize?client_id=945202900907470899&permissions=8&scope=bot%20applications.commands"
+                   target="_blank">
+                    <p class="smallTextBold gradientColor gradientUnderline mt-3">
+                        Add to your server
+                        <i class="fa-regular fa-arrow-right"></i>
+                    </p>
+                </a>
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <hr class="customHr" />
+    </div>
+</section>
+<section class="section" id="testimonials">
+    <div class="py-8 px-4 mx-auto max-w-6xl text-center lg:py-16">
+        <p class="extraBoldText text-white opacity-90 mt-8 mb-2 sm:px-16 lg:px-48">
+            User <span class="gradientColor">Testimonials</span>
+        </p>
+        <br />
+        <div class="sm:px-16 lg:px-48 text-left">
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
+                <div class="cardWBg rounded-xl p-6 flex flex-col justify-between">
+                    <p class="smallText opacity-80">
+                        <i class="fa-solid fa-star gradientColor"></i>
+                        <i class="fa-solid fa-star gradientColor"></i>
+                        <i class="fa-solid fa-star gradientColor"></i>
+                        <i class="fa-solid fa-star gradientColor"></i>
+                        <i class="fa-solid fa-star gradientColor"></i>
+                    </p>
+                    <p class="boldText text-white opacity-90 mt-3">
+                        <b>Loved it</b>
+                    </p>
+                    <p class="smallText text-white opacity-80 mt-3">
+                        The best bot I've ever seen! Fast, helpful, excellent for moderation and raid prevention! I was able to
+                        do giveaways and tickets with it, I recommend it!
+                    </p>
+                    <p class="smallText text-white opacity-80 mt-8">InternetSec</p>
+                </div>
+
+                <div class="cardWBg rounded-xl p-6 flex flex-col justify-between">
+                    <p class="smallText opacity-80">
+                        <i class="fa-solid fa-star gradientColor"></i>
+                        <i class="fa-solid fa-star gradientColor"></i>
+                        <i class="fa-solid fa-star gradientColor"></i>
+                        <i class="fa-solid fa-star gradientColor"></i>
+                        <i class="fa-solid fa-star gradientColor"></i>
+                    </p>
+                    <p class="boldText text-white opacity-90 mt-3">
+                        <b>The Best Bot on Earth!</b>
+                    </p>
+                    <p class="smallText text-white opacity-80 mt-3">
+                        iHorizon is just simple and beautiful, it's all open-source AND it's completely FREE! I've never seen a bot with
+                        that combination. Everyone should try iHorizon, it's worth it!
+                    </p>
+                    <p class="smallText text-white opacity-80 mt-8">Ether</p>
+                </div>
+            </div>
+
+            <section class="section" id="team">
+                <div class="py-8 px-4 mx-auto max-w-6xl lg:py-16">
+                    <hr class="customHr my-4" />
+                    <p class="extraBoldText text-white opacity-90 mt-8 mb-4 sm:px-16 lg:px-48">
+                        <span class="gradientColor"><b>Team</b></span>
+                    </p>
+
+                    <div class="cards-container">
+                        <div class="owl-carousel owl-carousel1 owl-theme">
+                            <div>
+                                <div class="card text-center">
+                                    <img class="card-img-top" src="./assets/img/team/kisakay.png" alt="" />
+                                    <div class="card-body">
+                                        <h5>
+                                            Kisakay<br />
+                                            <span>iHorizon Developer</span>
+                                        </h5>
+                                        <p class="card-text">
+                                            "Kisakay is one of the main developers of iHorizon. She developed most of the iHorizon Discord bot, as
+                                            well as the old documentation."
+                                        </p>
+                                        <a href="https://github.com/kisakay" target="_blank">
+                                            <button type="button"
+                                                    class="normalTextBold text-black button-color rounded-full px-3 py-1 text-center mb-2">
+                                                <i class="fab fa-github"></i> GitHub
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card text-center">
+                                    <img class="card-img-top" src="./assets/img/team/noemie.png" alt="" />
+                                    <div class="card-body">
+                                        <h5>
+                                            Noémie<br />
+                                            <span>Developer and Marketing Director</span>
+                                        </h5>
+                                        <p class="card-text">
+                                            "Noémie also developed iHorizon and is the marketing director of iHorizon."
+                                        </p>
+                                        <a href="https://github.com/Name-shitty-github-profile" target="_blank">
+                                            <button type="button"
+                                                    class="normalTextBold text-black button-color rounded-full px-3 py-1 text-center mb-2">
+                                                <i class="fab fa-github"></i> GitHub
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card text-center">
+                                    <img class="card-img-top" src="assets/img/team/nayaweb.png" alt="" />
+                                    <div class="card-body">
+                                        <h5>
+                                            NayaWeb<br />
+                                            <span>iHorizon Developer</span>
+                                        </h5>
+                                        <p class="card-text">
+                                            "NayaWeb was one of the developers of the iHorizon website and its documentation."
+                                        </p>
+                                        <a href="https://github.com/belugafr" target="_blank">
+                                            <button type="button"
+                                                    class="normalTextBold text-black button-color rounded-full px-3 py-1 text-center mb-2">
+                                                <i class="fab fa-github"></i> GitHub
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card text-center">
+                                    <img class="card-img-top" src="assets/img/team/maxine.png" alt="" />
+                                    <div class="card-body">
+                                        <h5>
+                                            Maxine<br />
+                                            <span>Old iHorizon developer</span>
+                                        </h5>
+                                        <p class="card-text">
+                                            "Maxine was a developer; she actively participated in the transition to TypeScript."
+                                        </p>
+                                        <a href="https://github.com/mxi1n" target="_blank">
+                                            <button type="button"
+                                                    class="normalTextBold text-black button-color rounded-full px-3 py-1 text-center mb-2">
+                                                <i class="fab fa-github"></i> GitHub
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card text-center">
+                                    <img class="card-img-top" src="./assets/img/team/wyene.png" alt="" />
+                                    <div class="card-body">
+                                        <h5>
+                                            Wyene<br />
+                                            <span>iHorizon Contributor</span>
+                                        </h5>
+                                        <p class="card-text">
+                                            "Wyene is a contributor/developer for iHorizon. He has often organized and participated in staff task
+                                            management."
+                                        </p>
+                                        <a href="https://github.com/WyeneCloud" target="_blank">
+                                            <button type="button"
+                                                    class="normalTextBold text-black button-color rounded-full px-3 py-1 text-center mb-2">
+                                                <i class="fab fa-github"></i> GitHub
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card text-center">
+                                    <img class="card-img-top" src="assets/img/team/andru.jpg" alt="" />
+                                    <div class="card-body">
+                                        <h5>
+                                            Andru<br />
+                                            <span>iHorizon Collaborator</span>
+                                        </h5>
+                                        <p class="card-text">
+                                            "Andru is a Collaborator and developer. "L"homme à tout faire", he manages the marketing, the community..."
+                                        </p>
+                                        <a href="https://github.com/firebird12510" target="_blank">
+                                            <button type="button"
+                                                    class="normalTextBold text-black button-color rounded-full px-3 py-1 text-center mb-2">
+                                                <i class="fab fa-github"></i> GitHub
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card text-center">
+                                    <img class="card-img-top" src="assets/img/team/leeway.png" alt="" />
+                                    <div class="card-body">
+                                        <h5>
+                                            Leeway<br />
+                                            <span>iHorizon Designer</span>
+                                        </h5>
+                                        <p class="card-text">
+                                            "Leeway is the main designer of the project, thanks to him and his artwork"
+                                        </p>
+                                        <a href="https://github.com/leeway" target="_blank">
+                                            <button type="button"
+                                                    class="normalTextBold text-black button-color rounded-full px-3 py-1 text-center mb-2">
+                                                <i class="fab fa-github"></i> GitHub
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card text-center">
+                                    <img class="card-img-top" src="./assets/img/team/ether.png" alt="" />
+                                    <div class="card-body">
+                                        <h5>Ether<br />
+                                            <span>iHorizon Contributor</span>
+                                        </h5>
+                                        <p class="card-text">"Ether is a contributor to iHorizon. He catches every typo in the bot, and he improvises himself as a support helper for the iHorizon bot."</p>
+                                        <a href="https://github.com/Ether2024-003" target="_blank">
+                                            <button type="button"
+                                                    class="normalTextBold text-black button-color rounded-full px-3 py-1 text-center mb-2">
+                                                <i class="fab fa-github"></i> GitHub
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card text-center">
+                                    <img class="card-img-top" src="./assets/img/team/gaboo.png" alt="">
+                                    <div class="card-body">
+                                        <h5>Gaboo<br />
+                                            <span>Community Manager</span>
+                                        </h5>
+                                        <p class="card-text">"He manages partnerships, organizes and maintains activities in the
+                                            Community."</p>
+                                        <a href="https://github.com/Gpasenvie" target="_blank">
+                                            <button type="button"
+                                                    class="normalTextBold text-black button-color rounded-full px-3 py-1 text-center mb-2">
+                                                <i class="fab fa-github"></i> GitHub
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="py-8 px-4 mx-auto max-w-6xl text-center lg:py-16">
+                    <hr class="customHr" />
+                    <br /><br /><br /><br /><br /><br /><br /><br />
+                    <div class="cardWBg rounded-xl">
+                        <div class="p-3">
+                            <p class="extraBoldText text-white opacity-90 mt-8 mb-2 sm:px-16 lg:px-48">
+                                iHorizon also has Discord support!
+                            </p>
+                            <p class="regularTextIta text-white opacity-80 mb-8 sm:px-16 lg:px-48">
+                                Click the buttons below to reach support for iHorizon!
+                            </p>
+                            <div
+                                    class="flex flex-col justify-center items-center space-y-4 sm:flex-row sm:justify-left sm:space-y-0 sm:space-x-4">
+                                <a href="https://discord.gg/J9Wy6a3Hjp" target="_blank"
+                                   class="normalTextBold text-white blackBg inline-flex justify-center items-center py-3 px-6 text-center rounded-full">
+                                    Join the server
+                                    <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                            <p class="smallText text-white opacity-90 mt-8 mb-8 sm:px-16 lg:px-48">
+            <span class="mr-2"><i class="fa-regular fa-check mr-1 opacity-90"></i>
+              <span class="opacity-60">iHorizon's Staff</span></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="mb-8">
+                <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+                    <hr class="customHr" />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <div class="md:flex md:justify-between">
+                        <div class="mb-6 md:mb-0">
+                            <a href="index" class="flex items-center">
+                                <img src="./assets/img/ihorizon.png" draggable="false" class="h-7 mr-3" alt="IMG" />
+                                <span class="regularTextBold text-white self-center whitespace-nowrap">iHorizon</span>
+                            </a>
+                            <br />
+                            <p class="smallText text-white opacity-80 mb-1">
+                                iHorizon, All rights reserved by iHorizon Team
+                            </p>
+
+                            <!--Start of Languages-->
+
+                            <div class="flex smallText text-white opacity-80 rounded-full">
+                                <ul class="list-none">
+                                    <li class="gradientText">
+                                        <a href="en" class="flex items-center">
+                                            <img class="w-5 h-5 mr-3 rounded-full" src="./assets/img/en.png" draggable="false"
+                                                 style="object-fit: cover" alt="IMG" />
+                                            English
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--End of Languages-->
+                            <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                                <div>
+                                    <h2 class="regularTextIta mb-6 text-white">Bot</h2>
+                                    <ul class="smallText text-white opacity-80">
+                                        <li class="mb-4">
+                                            <a href="https://discord.com/api/oauth2/authorize?client_id=945202900907470899&permissions=8&scope=bot%20applications.commands"
+                                               target="_blank" class="gradientUnderline">Add the bot to your server</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://discord.gg/J9Wy6a3Hjp" target="_blank" class="gradientUnderline">Join the support
+                                                server</a>
+                                        </li>
+                                        </li>
+                                        <li>
+                                            <a href="https://top.gg/bot/945202900907470899/" target="_blank" class="gradientUnderline">Top.gg</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h2 class="regularTextIta mb-6 text-white">Other Pages</h2>
+                                    <ul class="smallText text-white opacity-80">
+                                        <li class="mb-4">
+                                            <a href="./docs" target="_blank" class="gradientUnderline">Docs</a>
+                                        </li>
+                                        <li class="mb-4">
+                                            <a href="#team" class="gradientUnderline">Team</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </footer>
+
+            <br />
+            <br />
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="./assets/js/card.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
+<script src="./assets/js/api.js"></script>
+<!-- <script src="./assets/js/snow.js"></script> -->
+<script src="./assets/js/music.js"></script>
+<script src="./assets/js/enterButton.js"></script>
+
+</html>
