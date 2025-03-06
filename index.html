@@ -18,13 +18,10 @@
 
 <body>
     <script>
-        // Récupérer la langue du navigateur
         const userLang = navigator.language || navigator.userLanguage;
 
-        // Vérifier si la langue est le français
         if (userLang.startsWith("fr")) {
             window.location.href = "/fr";
-            //sinon envoyer en anglais
         } else {
             window.location.href = "/en";
         }
